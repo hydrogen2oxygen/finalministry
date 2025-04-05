@@ -1,2 +1,11 @@
-# finalministry
-New Electron version of Finalministry Territory Designer and Manager Application
+# FinalMinistry
+New Electron version of FinalMinistry Territory Designer and Manager Application
+
+# Versions
+...
+
+# Developers
+Start the application in developer mode:
+```bash
+npm start
+```

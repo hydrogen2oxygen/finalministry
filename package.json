@@ -1,0 +1,33 @@
+{
+  "name": "finalministry",
+  "version": "1.0.0",
+  "description": "New Electron version of Finalministry Territory Designer and Manager Application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "postinstall": "electron-builder install-app-deps",
+    "dist": "electron-builder --win --x64",
+    "dist:mac": "electron-builder --mac --x64",
+    "dist:linux": "electron-builder --linux --x64",
+    "dist:all": "electron-builder --win --x64 --mac --x64 --linux --x64",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hydrogen2oxygen/finalministry.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hydrogen2oxygen/finalministry/issues"
+  },
+  "homepage": "https://github.com/hydrogen2oxygen/finalministry#readme",
+  "devDependencies": {
+    "electron": "^35.1.4"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

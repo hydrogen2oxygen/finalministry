@@ -1,0 +1,11 @@
+<div *ngIf="loading">{{loadingText}}</div>
+<div *ngIf="!loading">
+  <div *ngFor="let b of backupFiles" class="backup" [class.backup-no-content]="b.territoryCount == 0" [class.backup-alreadyOpen]="b.alreadyOpen">
+    <span class="badge">{{b.lastUpdate| date:'dd-MM-yy'}}</span>
+    <span class="badge text-bg-primary" title="territories" style="margin-left: 0.2rem" title="Territories">{{b.territoryCount}}</span>
+    <span class="badge text-bg-success" title="preachers" style="margin-left: 0.2rem" title="Preachers">{{b.preacherCount}}</span>
+    <button *ngIf="!b.alreadyOpen" class="btn btn-primary btn-sm" style="margin: 0.2rem" (click)="restoreBackup(b)">RESTORE THIS UPDATE</button>
+    <button *ngIf="!b.alreadyOpen && b.territoryCount == 0" class="btn btn-danger btn-sm" style="margin: 0.2rem" (click)="deleteBackup(b)">DELETE</button>
+    <button *ngIf="b.alreadyOpen" class="btn btn-success btn-sm" style="margin: 0.2rem">OPENED</button>
+  </div>
+</div>

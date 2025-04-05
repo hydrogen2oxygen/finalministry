@@ -1,0 +1,77 @@
+<h1 style="color: darkorange" *ngIf="loading">... please wait ... processing ...</h1>
+<div class="input-group mb-3" style="width: 30%">
+  <input type="text" class="form-control" placeholder="New Preacher Full Name" aria-label="New Preacher Full Name" aria-describedby="button-Preacher" [formControl]="newPreacherName">
+  <button class="btn btn-success btn-sm" type="button" id="button-Preacher" (click)="saveNewPreacher()">SAVE NEW PREACHER</button>
+</div>
+
+<div class="input-group mb-3" style="width: 70%">
+  <textarea type="text" class="form-control" placeholder="Notes" aria-label="Notes" aria-describedby="button-Notes" [formControl]="notes"></textarea>
+  <button class="btn btn-success btn-sm" type="button" id="button-Notes" (click)="saveNotes()">SAVE NOTES</button>
+</div>
+
+<div>
+  <button class="btn btn-sm btn-preacher"
+          [class.noTerritories]="p.territoryListNumbers.length === 0"
+          [class.oneTerritory]="p.territoryListNumbers.length === 1"
+          [class.moreTerritories]="p.territoryListNumbers.length > 1"
+          *ngFor="let p of congregation.preacherList"
+          (click)="openPreacher(p)"
+          data-bs-toggle="modal" data-bs-target="#preacherDetailsModal">
+    {{p.name}}
+    <span *ngIf="p.territoryListNumbers.length > 0">({{p.territoryListNumbers.length}})</span>
+  </button>
+</div>
+<hr>
+<div style="width: 50%">
+  <table class="table table-bordered table-sm table-striped table-dark">
+    <thead>
+    <tr><th>SHORT</th><th>NAME</th></tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let p of congregation.preacherList">
+      <td>{{p.shortName}}</td>
+      <td>{{p.name}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+Preachers {{
+congregation.preacherList.length
+}}
+<hr>
+<h3>Protocol:</h3>
+<ul>
+  <li *ngFor="let p of congregation.protocol.reverse()"><span class="badge text-bg-dark">{{p}}</span></li>
+</ul>
+
+<!-- Modal -->
+<div class="modal fade" id="preacherDetailsModal" tabindex="-1" aria-labelledby="preacherDetailsModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" *ngIf="preacher">
+
+        <h3 class="text-dark">{{preacher.name}}</h3>
+
+        <div class="input-group input-group-sm mb-3" *ngFor="let territory of territories" style="margin-top: 0.1rem;margin-bottom: 0.1rem!important;">
+          <span class="form-control {{cssAccordingToTerritory(territory)}}" [class.selectedTerritory]="selectedTerritoryNumber === territory.number">{{territory.number}} {{getTerritoryNameAndDetails(territory)}}</span>
+          <button class="btn btn-warning btn-sm" id="button-ReturnTerritory" data-bs-toggle="modal" data-bs-target="#preacherDetailsModal" (click)="returnTerritoryByNumber(territory)">RETURN</button>
+          <button *ngIf="territory.mapExist" class="btn btn-success btn-sm" id="button-OpenTerritory" (click)="openTerritoryByNumber(territory)">OPEN</button>
+        </div>
+        <div *ngIf="territoryUrl">
+          <hr>
+          <iframe class="e2e-iframe-trusted-src" [src]="territoryUrl" style="width: 90%"></iframe>
+          <a class="btn btn-success btn-sm e2e-trusted-url" id="button-GoToBigMap" [href]="territoryUrl" target="new">GO TO BIG MAP</a>
+        </div>
+      </div>
+      <div class="modal-footer" *ngIf="preacher">
+        <button class="btn btn-primary btn-sm" (click)="getWhatsAppMessage(preacher)" data-bs-toggle="modal" data-bs-target="#preacherDetailsModal">Copy WhatsAppMessage</button>
+        <!--<button class="btn btn-success btn-sm" style="margin-left: 0.1rem" (click)="addGroupMember(p)">Add Group Member</button>-->
+        <button class="btn btn-danger btn-sm" style="margin-left: 0.1rem" (click)="deletePreacher(preacher)">Delete {{preacher.name}}</button>
+        <button *ngIf="preacher.softdelete" class="btn btn-danger btn-sm" style="margin-left: 0.1rem"
+                (click)="harddeletePreacher(preacher)" data-bs-toggle="modal" data-bs-target="#preacherDetailsModal">Delete {{preacher.name}} for real!!!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

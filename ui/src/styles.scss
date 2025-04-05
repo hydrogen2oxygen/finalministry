@@ -1,0 +1,24 @@
+// @import '~bootstrap/scss/bootstrap';
+@import '~ngx-toastr/toastr';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  background-color: #42495b;
+  color: white;
+}
+
+.btn-xs {
+  padding: 0.0rem .25rem 0.0rem .25rem !important;
+  font-size: .875rem !important;
+  line-height: .5 !important;
+  border-radius: .2rem !important;
+  height: 1.5rem
+}
+
+.showModal {
+  display:block;
+}
+
+.cdk-overlay-container {
+  z-index:2000;
+}

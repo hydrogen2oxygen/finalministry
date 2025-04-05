@@ -1,0 +1,25 @@
+.content {
+  display: flex;
+  margin: 32px;
+  padding: 0 16px;
+  flex-direction: column;
+}
+
+.activeLink {
+  font-weight: bolder;
+  background-color: #4e555b;
+  color: white;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.centeredSearch {
+  position: fixed;
+  top: 50%!important;
+  left: 50%!important;
+  width: 25%!important;
+  margin: auto;
+  transform: translate(-50%, -50%);
+}

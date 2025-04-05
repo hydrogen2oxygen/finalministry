@@ -1,0 +1,252 @@
+<h1 style="color: darkorange" *ngIf="loading">... please wait ... processing ...</h1>
+<div class="collapseContainer collapseToBeAssigned">
+  <h4 class="collapseHeader" data-bs-toggle="collapse" href="#toBeAssigned" role="button" aria-expanded="false" aria-controls="toBeAssigned">
+    To be assigned ({{congregation.territoriesToBeAssigned.length}})
+  </h4>
+  <div class="collapse" id="toBeAssigned">
+    <button class="btn btn-sm toBeAssignedButton btn-territory"
+            *ngFor="let t of congregation.territoriesToBeAssigned"
+            (click)="showTerritoryDetails(t)"
+            data-bs-toggle="modal" data-bs-target="#territoryDetailsModal">
+      {{t.number}} {{t.name}} {{t.date | date:'dd-MM-yy'}} <i-bs *ngIf="t.notes.length > 0" name="info-circle" style="color: #ffffff"></i-bs>
+      <i *ngIf="t.mapExist" class="bi bi-map-fill"></i>
+      <i *ngIf="t.uuid && !t.ftpExported" class="bi bi-cloud-slash" style="margin-left: 0.25rem"></i>
+    </button>
+  </div>
+</div>
+
+<div class="collapseContainer collapseAssigned">
+  <h4 class="collapseHeader" data-bs-toggle="collapse" href="#assigned" role="button" aria-expanded="false" aria-controls="assigned">
+    Already assigned  ({{congregation.territoriesAssigned.length}})
+  </h4>
+  <div class="collapse" id="assigned">
+    <button class="btn btn-sm assignedButton btn-territory"
+            *ngFor="let t of congregation.territoriesAssigned"
+            (click)="showTerritoryDetails(t)"
+            data-bs-toggle="modal" data-bs-target="#territoryDetailsModal">
+      {{t.number}} {{t.name}} {{t.date | date:'dd-MM-yy'}} <i-bs *ngIf="t.notes.length > 0" name="info-circle" style="color: #ffca00"></i-bs>
+      <i *ngIf="t.mapExist" class="bi bi-map-fill"></i>
+      <i *ngIf="t.uuid && !t.ftpExported" class="bi bi-cloud-slash" style="margin-left: 0.25rem"></i>
+    </button>
+  </div>
+</div>
+
+<div class="collapseContainer collapse4Months">
+  <h4 class="collapseHeader" data-bs-toggle="collapse" href="#olderThan4Months" role="button" aria-expanded="false" aria-controls="olderThan8Months">
+    Older than 4 months  ({{congregation.territoriesOlder4Months.length}})
+  </h4>
+  <div class="collapse" id="olderThan4Months">
+    <button class="btn btn-sm olderThan4MonthsButton btn-territory"
+            *ngFor="let t of congregation.territoriesOlder4Months"
+            (click)="showTerritoryDetails(t)"
+            data-bs-toggle="modal" data-bs-target="#territoryDetailsModal">
+      {{t.number}} {{t.name}} {{t.date | date:'dd-MM-yy'}} <i-bs *ngIf="t.notes.length > 0" name="info-circle" style="color: #fff1bd"></i-bs>
+      <i *ngIf="t.mapExist" class="bi bi-map-fill"></i>
+      <i *ngIf="t.uuid && !t.ftpExported" class="bi bi-cloud-slash" style="margin-left: 0.25rem"></i>
+    </button>
+  </div>
+</div>
+
+<div class="collapseContainer collapse8Months">
+  <h4 class="collapseHeader" data-bs-toggle="collapse" href="#olderThan8Months" role="button" aria-expanded="false" aria-controls="olderThan8Months">
+    Older than 8 months ({{congregation.territoriesOlder8Months.length}})
+  </h4>
+  <div class="collapse" id="olderThan8Months">
+    <button class="btn btn-sm olderThan8MonthsButton btn-territory"
+            *ngFor="let t of congregation.territoriesOlder8Months"
+            (click)="showTerritoryDetails(t)"
+            data-bs-toggle="modal" data-bs-target="#territoryDetailsModal">
+      {{t.number}} {{t.name}} {{t.date | date:'dd-MM-yy'}} <i-bs *ngIf="t.notes.length > 0" name="info-circle" style="color: #ffca00"></i-bs>
+      <i *ngIf="t.mapExist" class="bi bi-map-fill"></i>
+      <i *ngIf="t.uuid && !t.ftpExported" class="bi bi-cloud-slash" style="margin-left: 0.25rem"></i>
+    </button>
+  </div>
+</div>
+
+<div class="collapseContainer collapseNoContacts">
+  <h4 class="collapseHeader" data-bs-toggle="collapse" href="#noContacts" role="button" aria-expanded="false" aria-controls="noContacts">
+    No contacts  ({{congregation.territoriesNoContacts.length}})
+  </h4>
+  <div class="collapse" id="noContacts">
+    <button class="btn btn-sm olderThan8MonthsButton btn-territory"
+            *ngFor="let t of congregation.territoriesNoContacts"
+            (click)="showTerritoryDetails(t)"
+            data-bs-toggle="modal" data-bs-target="#territoryDetailsModal">
+      {{t.number}} {{t.name}} {{t.date | date:'dd-MM-yy'}} <i-bs *ngIf="t.notes.length > 0" name="info-circle" style="color: #ffca00"></i-bs>
+      <i *ngIf="t.mapExist" class="bi bi-map-fill"></i>
+      <i *ngIf="t.uuid && !t.ftpExported" class="bi bi-cloud-slash" style="margin-left: 0.25rem"></i>
+    </button>
+  </div>
+</div>
+
+<div class="collapseContainer collapseArchived">
+  <h4 class="collapseHeader" data-bs-toggle="collapse" href="#archived" role="button" aria-expanded="false" aria-controls="archived">
+    Archived ({{congregation.territoriesArchived.length}})
+  </h4>
+  <div class="collapse" id="archived">
+    <button class="btn btn-sm archivedButton btn-territory"
+            *ngFor="let t of congregation.territoriesArchived"
+            (click)="showTerritoryDetails(t)"
+            data-bs-toggle="modal" data-bs-target="#territoryDetailsModal">
+      {{t.number}} {{t.name}} {{t.date | date:'dd-MM-yy'}} <i-bs *ngIf="t.notes.length > 0" name="info-circle" style="color: #380000"></i-bs>
+      <i *ngIf="t.mapExist" class="bi bi-map-fill"></i>
+      <i *ngIf="t.uuid && !t.ftpExported" class="bi bi-cloud-slash" style="margin-left: 0.25rem"></i>
+    </button>
+  </div>
+</div>
+
+
+<div class="collapseContainer collapseArchived">
+  <h4 class="collapseHeader" data-bs-toggle="collapse" href="#sorted" role="button" aria-expanded="false" aria-controls="sorted">
+    ALL TERRITORIES SORTED
+  </h4>
+  <div class="collapse" id="sorted">
+    <button class="btn btn-sm btn-territory"
+            *ngFor="let t of territoriesSorted"
+            (click)="showTerritoryDetails(t)"
+            style="{{getTerritoryButtonColor(t.number)}}"
+            data-bs-toggle="modal" data-bs-target="#territoryDetailsModal">
+      {{t.number}} {{t.name}} {{t.date | date:'dd-MM-yy'}} <i-bs *ngIf="t.notes.length > 0" name="info-circle" style="color: #380000"></i-bs>
+      <i *ngIf="t.mapExist" class="bi bi-map-fill"></i>
+      <i *ngIf="t.uuid && !t.ftpExported" class="bi bi-cloud-slash" style="margin-left: 0.25rem"></i>
+    </button>
+  </div>
+</div>
+
+
+
+
+Territories {{
+  congregation.territoriesAssigned.length
+  + congregation.territoriesNoContacts.length
+  + congregation.territoriesOlder4Months.length
+  + congregation.territoriesOlder8Months.length
+  + congregation.territoriesToBeAssigned.length
+}} | visited during one year {{visitedDuringLastYear}} | not visited for one year {{notVisitedForOneYear}}
+<hr>
+<button class="btn btn-sm btn-success" (click)="printPDF()">PRINT PDF</button>
+<button *ngIf="congregation.counterFtpUploadFailed > 0" class="btn btn-sm btn-danger" style="margin-left: 0.5rem; font-weight: bolder" (click)="repairFtpUploads()">REPAIR FTP UPLOADS <i class="bi bi-cloud-slash" style="margin-left: 0.25rem"></i> {{congregation.counterFtpUploadFailed}} failed uploads</button>
+<button *ngIf="congregation.territoriesOlder8Months.length > 0" class="btn btn-sm btn-warning" style="margin-left: 0.5rem; font-weight: bolder" (click)="copyOlderThan12MonthsMessage()">OLDER THAN 12 MONTHS MESSAGE</button>
+<hr>
+<div class="collapseContainer collapseProtocol">
+  <h4 class="collapseHeader" data-bs-toggle="collapse" href="#protocol" role="button" aria-expanded="false" aria-controls="protocol">
+    PROTOCOL
+  </h4>
+  <div class="collapse" id="protocol">
+    <ul>
+      <li *ngFor="let p of congregation.protocol.reverse()"><span class="badge text-bg-dark">{{p}}</span></li>
+    </ul>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div #territoryDetailsModal class="modal fade" id="territoryDetailsModal" tabindex="-1" aria-labelledby="territoryDetailsModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" *ngIf="territory">
+
+            <h3 class="text-dark">{{territory.number}} {{territory.name}}</h3>
+            <table class="table table-bordered table-sm table-striped">
+              <thead>
+              <tr class="bg-primary">
+                <th>Name</th>
+                <th>Assigned</th>
+                <th>Returned</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let registryEntry of territory.registryEntryList; index as i" class="col-auto" [class.registered]="registryEntry.registration">
+                <td>{{registryEntry.preacher.name}}</td>
+                <td>{{registryEntry.assignDate | date:'dd-MM-yy'}}</td>
+                <td>{{registryEntry.returnDate | date:'dd-MM-yy'}}</td>
+                <td><button *ngIf="territory.registryEntryList.length > 1 && i > 0" class="btn btn-xs btn-danger" (click)="removeRegistryEntry(registryEntry)" title="Delete Registry Entry">DEL</button></td>
+              </tr>
+              </tbody>
+            </table>
+
+            <div *ngFor="let note of territory.notes"
+                 style="width: 100%;  display: flex;  flex-direction: row;  justify-content: right;">
+              <pre style="color: #aa0000;">{{note}}</pre>
+              <button class="btn btn-danger btn-xs" style="margin-left: 0.3rem;" (click)="removeNote(note)">x</button>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="intoArchive" [formControl]="intoArchive">
+              <label class="form-check-label text-danger" for="intoArchive">
+                into archive
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [formControl]="noContacts">
+              <label class="form-check-label text-dark" for="flexCheckDefault">
+                no contacts in this territory
+              </label>
+            </div>
+
+            <div class="input-group mb-3">
+              <input class="form-control" type="text" placeholder="note" [formControl]="note">
+              <div class="input-group-append">
+                <button style="margin-left: 0.2rem" class="btn btn-outline-secondary" (click)="addNote()">Add note</button>
+              </div>
+            </div>
+
+        <div class="input-group mb-3">
+          <table>
+            <tr>
+              <td>
+                <mat-form-field class="modal-body"  >
+                  <mat-label>Assign date in past</mat-label>
+                  <input matInput [matDatepicker]="picker1" style="color: #0a53be" [formControl]="preDateAssigned">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="modal-body"  >
+                  <mat-label>Return date in past</mat-label>
+                  <input matInput [matDatepicker]="picker2" style="color: #0a53be" [formControl]="preDateReturned">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="ng-autocomplete" style="width: 75%">
+          <ng-autocomplete
+            [data]="preacherList"
+            [searchKeyword]="keyword"
+            placeHolder="Enter the Preacher Name"
+            (selected)='selectEvent($event)'
+            (inputChanged)='onChangeSearch($event)'
+            (inputFocused)='onFocused($event)'
+            [itemTemplate]="itemTemplate"
+            [notFoundTemplate]="notFoundTemplate">
+          </ng-autocomplete>
+
+          <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item.name"></a>
+          </ng-template>
+
+          <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="notFound"></div>
+          </ng-template>
+        </div>
+
+      </div>
+
+      <div class="modal-footer" *ngIf="territory">
+        <button type="button" class="btn btn-success" style="margin-right: 1rem" (click)="registerTerritory(territory)" data-bs-toggle="modal" data-bs-target="#territoryDetailsModal">REGISTER</button>
+        <button type="button" class="btn btn-warning" (click)="repairTerritory(territory)" data-bs-toggle="modal" data-bs-target="#territoryDetailsModal">REPAIR</button>
+        <button type="button" class="btn btn-outline-warning" (click)="territory = null" data-bs-toggle="modal" data-bs-target="#territoryDetailsModal">Cancel</button>
+        <button type="button" class="btn btn-outline-success" (click)="saveTerritory()" data-bs-toggle="modal" data-bs-target="#territoryDetailsModal">Save</button>
+        <button type="button" class="btn btn-danger" *ngIf="territory.archive" (click)="deleteTerritory(territory.number)" data-bs-toggle="modal" data-bs-target="#territoryDetailsModal">DELETE</button>
+      </div>
+    </div>
+  </div>
+</div>

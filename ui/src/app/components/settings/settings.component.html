@@ -1,0 +1,71 @@
+<h1>Settings</h1>
+<div class="form-group">
+  <label for="ftpUser">FTP USER</label>
+  <input type="text" class="form-control" id="ftpUser" aria-describedby="ftpUser" placeholder="ftpUser"
+         [formControl]="ftpUser">
+</div>
+<div class="form-group">
+  <label for="ftpPassword">FTP PASSWORD</label>
+  <input type="text" class="form-control" id="ftpPassword" aria-describedby="ftpPassword"
+         placeholder="ftpPassword" [formControl]="ftpPassword">
+</div>
+<div class="form-group">
+  <label for="ftpHost">FTP HOST</label>
+  <input type="text" class="form-control" id="ftpHost" aria-describedby="ftpHost" placeholder="ftpHost"
+         [formControl]="ftpHost">
+</div>
+<div class="form-group">
+  <label for="ftpPort">FTP PORT</label>
+  <input type="text" class="form-control" id="ftpPort" aria-describedby="ftpPort" placeholder="ftpPort"
+         [formControl]="ftpPort">
+</div>
+<div class="form-group">
+  <label for="knownHosts">KNOWN HOSTS</label>
+  <input type="text" class="form-control" id="knownHosts" aria-describedby="knownHosts" placeholder="knownHosts"
+         [formControl]="knownHosts">
+</div>
+<div class="form-group">
+  <label for="rootPath">ROOT PATH</label>
+  <input type="text" class="form-control" id="rootPath" aria-describedby="rootPath" placeholder="rootPath"
+         [formControl]="rootPath">
+</div>
+<div class="form-group">
+  <label for="httpHost">HTTP HOST</label>
+  <input type="text" class="form-control" id="httpHost" aria-describedby="httpHost" placeholder="httpHost"
+         [formControl]="httpHost">
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="sftp" [formControl]="sftp">
+  <label class="form-check-label" for="sftp">SFTP ON / OFF</label>
+</div>
+<hr>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="sync" [formControl]="sync">
+  <label class="form-check-label" for="sync">SYNCHRONIZATION ON / OFF</label>
+</div>
+<div class="form-group" *ngIf="sync.value">
+  <label for="syncPassword">SYNCHRONIZATION PASSWORD</label>
+  <input type="text" class="form-control" [class.passwordSet]="syncPassword.value?.length == 72"
+         id="syncPassword" aria-describedby="syncPassword" placeholder="syncPassword"
+         [formControl]="syncPassword">
+  <button class="btn btn-danger mb-2" style="margin-top: 1rem; margin-left: 0.2rem" (click)="createUniquePassword()">CREATE UNIQUE PASSWORD</button>
+</div>
+<hr>
+<div class="form-group">
+  <label for="whatsApp">WHATSAPP TEXT</label>
+  <input type="text" class="form-control" id="whatsApp" aria-describedby="whatsApp" placeholder="whatsApp Text"
+         [formControl]="whatsApp">
+</div>
+<div class="form-group">
+  <label for="whatsAppNote">WHATSAPP NOTE TEXT</label>
+  <input type="text" class="form-control" id="whatsAppNote" aria-describedby="whatsAppNote" placeholder="whatsApp Note Text"
+         [formControl]="whatsAppNote">
+</div>
+<div class="form-group">
+  <label for="whatsAppDashboard">WHATSAPP DASHBOARD WORD</label>
+  <input type="text" class="form-control" id="whatsAppDashboard" aria-describedby="whatsAppDashboard" placeholder="whatsApp Dashboard Word"
+         [formControl]="whatsAppDashboard">
+</div>
+<hr>
+<button type="submit" class="btn btn-success mb-2" style="margin-top: 1rem; margin-left: 0.2rem" (click)="save()">SAVE SETTINGS</button>

@@ -1,0 +1,71 @@
+.collapseContainer {
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+  margin-bottom: 0.2rem;
+}
+
+.collapseNoContacts {
+  background-color: #41000c;
+}
+
+.collapse8Months {
+  background-color: #ff2d00;
+}
+
+.collapse4Months {
+  background-color: #ff8c00;
+}
+
+.collapseAssigned {
+  background-color: #009dff;
+}
+
+.collapseToBeAssigned {
+  background-color: #00ce29;
+}
+
+.collapseArchived {
+  background-color: #323232;
+}
+
+.collapseProtocol {
+  background-color: #000000;
+}
+
+.collapseHeader {
+  color: white!important;
+}
+
+button.olderThan8MonthsButton {
+  background-color: #aa0000;
+  color: white;
+}
+
+button.olderThan4MonthsButton {
+  background-color: #e55100;
+  color: white;
+}
+
+button.toBeAssignedButton {
+  background-color: #2a8900;
+  color: white;
+}
+
+button.assignedButton {
+  background-color: #0071c0;
+  color: white;
+}
+
+button.archivedButton {
+  background-color: #808080;
+  color: white;
+}
+
+.btn-territory {
+  margin: 0.1rem;
+  font-weight: bolder;
+}
+
+.registered {
+  background-color: #d7f5e8 !important;
+}

@@ -1,0 +1,53 @@
+<div class="content" role="main" *ngIf="internetOffline">
+  <h1 class="badge bg-danger" style="font-size: larger">Internet is offline!</h1>
+  <p>Check your internet connection and refresh this site!</p>
+</div>
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand">Final-Approach
+      <span *ngIf="version" class="badge text-bg-info" title="Final-Approach Version">{{version.revision}}</span>
+      <span *ngIf="version && version.counterTerritories > 0" class="badge text-bg-primary" style="margin-left: 0.2rem" title="Territories">{{version.counterTerritories}}</span>
+      <span *ngIf="version && version.counterPreachers > 0" class="badge text-bg-success" style="margin-left: 0.2rem" title="Preachers">{{version.counterPreachers}}</span>
+      <span *ngIf="version == null" class="badge text-bg-danger">OFFLINE</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" *ngFor="let link of links">
+          <a class="nav-link pointer" [class.activeLink]="link.active" (click)="navigate(link.title)">{{link.title}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pointer" href="https://github.com/hydrogen2oxygen/final-approach" target="github">GITHUB</a>
+        </li>
+        <li class="nav-item>" *ngIf="version?.uploading">
+          <i class="nav-link bi bi-cloud-upload-fill"></i>
+        </li>
+        <li class="nav-item>" *ngIf="version?.downloading">
+          <i class="bi bi-cloud-download-fill"></i>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="content" role="main" *ngIf="version">
+  <!-- The dynamic content -->
+  <router-outlet></router-outlet>
+  <!-- Footer -->
+  <footer></footer>
+</div>
+
+<div class="content" role="main" *ngIf="version == null">
+  <h1 class="badge bg-danger">Server is offline!</h1>
+  <p>You need to restart your server application. Click on start.bat</p>
+  <img src="assets/startServer.png">
+</div>
+
+<div *ngIf="showSearch" class="content centeredSearch">
+  <div>
+    <input #centeredSearch [formControl]="searchField" class="form-control" (keyup)="search()" />
+  </div>
+  <div style="margin-top: 0.2rem" *ngFor="let s of searchResult?.searchResults"><button class="btn btn-sm btn-success" (click)="selectSearchResult(s)">{{s.searchType}} | {{s.readableText}}</button></div>
+</div>

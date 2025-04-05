@@ -1,0 +1,46 @@
+<div id="map" style="top: 0px; left:0px;width: 100%; height: 100%; position:fixed; background-color: #125699"></div>
+<div style="position: fixed; top:10px; left: 10px;">
+  <button class="btn btn-sm btn-primary toolbar-button" (click)="navigate('TERRITORIES')" title="BACK TO HOME"><i class="bi bi-house-fill"></i></button>
+  <button class="btn btn-sm btn-info toolbar-button" (click)="setHomeCoordinates()" title="SET HOME XY"><i class="bi bi-x-square"></i></button>
+  <button class="btn btn-sm btn-primary toolbar-button" (click)="drawPolygon()" title="DRAW A POLYGON OR MAP"><i class="bi bi-pencil-square"></i></button>
+  <!--<button class="btn btn-sm btn-primary toolbar-button" (click)="drawLine()">LINE</button>
+  <button class="btn btn-sm btn-primary toolbar-button" (click)="drawPoint()">POINT</button>-->
+  <button *ngIf="modeSelected != 'edit'" class="btn btn-sm btn-warning toolbar-button" (click)="editFeature()" title="EDIT AN EXISTING MAP"><i class="bi bi-pencil-fill"></i></button>
+  <button class="btn btn-sm btn-info toolbar-button" (click)="setNavigateMode()" title="NAVIGATION MODE (NO EDIT)"><i class="bi bi-eye"></i></button>
+  <button *ngIf="featureModified && territoryNumberSet()" class="btn btn-sm btn-warning toolbar-button" (click)="saveMap()">SAVE MODIFICATION!</button>
+  <button *ngIf="featureModified && !territoryNumberSet()" class="btn btn-sm btn-warning toolbar-button" disabled>SAVE MODIFICATION!</button>
+  <button *ngIf="!hideImportedFeature" (click)="hideImportedFeature = !hideImportedFeature; vectorLayer.getSource().changed();" class="btn btn-sm btn-info toolbar-button" title="hide outline polygon"><i class="bi bi-easel-fill"></i></button>
+  <button *ngIf="hideImportedFeature" (click)="hideImportedFeature = !hideImportedFeature; vectorLayer.getSource().changed();" class="btn btn-sm btn-primary toolbar-button" title="show outline polygon"><i class="bi bi-easel2"></i></button>
+  <button *ngIf="!showOsmData" (click)="showOsmData = !showOsmData; vectorLayer.getSource().changed();" class="btn btn-sm btn-success toolbar-button" title="show OsmData"><i class="bi bi-easel-fill"></i></button>
+  <button *ngIf="showOsmData" (click)="showOsmData = !showOsmData; vectorLayer.getSource().changed();" class="btn btn-sm btn-primary toolbar-button" title="hide OsmData"><i class="bi bi-easel2"></i></button>
+  <button class="btn btn-sm btn-danger toolbar-button" (click)="deleteMap()" title="DELETE MAP"><i class="bi bi-trash3-fill"></i></button>
+</div>
+<div style="position: fixed; bottom:10px; left: 10px;">
+  <button class="btn btn-sm btn-success toolbar-button" (click)="exportKml()">EXPORT KML</button>
+  <!--  <button class="btn btn-sm btn-success toolbar-button" (click)="importStreetNames()">IMPORT STREET NAMES</button>
+    <button class="btn btn-sm btn-success toolbar-button" (click)="importKml()">IMPORT KML</button>
+    -->
+  </div>
+<div class="btn-group-vertical" style="position: fixed; background-color: white; color: black; top: 10px; right: 20px; margin: 10px;">
+  Last saved territory:<br>
+  {{lastSavedTerritoryName}}
+  <br>Territories: {{mapDesign.territoryMapList.length}}
+  <select #t (change)="navigateToTerritoryMap(t.value)" class="form-select form-select-sm" aria-label="Default select example">
+    <option selected>Navigate to ...</option>
+    <option *ngFor="let territoryMap of mapDesign.territoryMapList" value="{{territoryMap.territoryNumber}}" (change)="navigateToTerritoryMap(territoryMap)">{{territoryMap.territoryNumber}} {{territoryMap.territoryName}}</option>
+  </select>
+  <a *ngIf="map" href="https://www.google.com/maps/@{{getCoordinates(map.getView().getCenter()).toString().split(',')[1]}},{{getCoordinates(map.getView().getCenter()).toString().split(',')[0]}},{{map.getView().getZoom()}}z" target="googleMaps">GoogleMaps</a>
+</div>
+
+<div *ngIf="lastSelectedFeature != undefined" style="position: fixed; background-color: #bbbec0; bottom: 10px; left: 20px;">
+  <div class="input-group mb-3">
+    <input class="form-control form-control-sm" type="text" placeholder="number" [formControl]="territoryCustomNumber">
+    <input class="form-control form-control-sm" type="text" placeholder="territory name" [formControl]="territoryCustomName">
+    <input class="form-control form-control-sm" type="text" placeholder="note" [formControl]="note">
+    <div class="input-group-append">
+      <button style="margin-left: 0.2rem" class="btn btn-success btn-sm" (click)="getDownloadOSMdata()">Download OSM Data</button>
+      <button style="margin-left: 0.2rem" class="btn btn-primary btn-sm" (click)="saveMap()">Save Map for Territory</button>
+      <button *ngIf="lastSelectedTerritoryMap?.draft == true" style="margin-left: 0.2rem" class="btn btn-success btn-sm" (click)="setActive()">Set Active</button>
+    </div>
+  </div>
+</div>
