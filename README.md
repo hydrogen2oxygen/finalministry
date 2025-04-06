@@ -9,3 +9,8 @@ Start the application in developer mode:
 ```bash
 npm start
 ```
+
+Build it locally as an executable:
+```bash
+npm run dist
+```

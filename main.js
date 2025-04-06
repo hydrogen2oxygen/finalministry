@@ -7,18 +7,24 @@ const express = require('express');
 const path = require('path');
 
 let mainWindow;
+const PORT = 3000;
 const server = express();
-
-// Statische Dateien aus `dist/` bereitstellen
 server.use(express.static(path.join(__dirname, 'ui/dist')));
 
-// Starte den Server auf einer lokalen Portnummer
-const PORT = 3000;
 server.listen(PORT, () => {
     console.log(`Lokaler Server läuft auf http://localhost:${PORT}`);
 });
 
 app.whenReady().then(() => {
-    mainWindow = new BrowserWindow({ width: 800, height: 600 });
-    mainWindow.loadURL(`http://localhost:${PORT}/`);
+    mainWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        fullscreen: false,
+        webPreferences: {
+            nodeIntegration: true,
+        }
+    });
+
+    mainWindow.maximize();
+    mainWindow.loadURL(`http://localhost:${PORT}/index.html`);
 });
