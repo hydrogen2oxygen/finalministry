@@ -2,26 +2,31 @@
 // It initializes the Electron app and creates the main window.
 // It also loads the Angular application from the specified path.
 // It is responsible for managing the lifecycle of the application and handling events.
-const { app, BrowserWindow } = require('electron');
-const express = require('express');
-const path = require('path');
+import { app, BrowserWindow } from 'electron';
+import express from 'express';
+import path from 'path';
 
-let mainWindow;
+let mainWindow: BrowserWindow | null = null;
+
 const PORT = 3000;
 const server = express();
-server.use(express.static(path.join(__dirname, 'ui/dist')));
 
+// Serve Angular frontend from 'ui/dist'
+server.use(express.static(path.join(__dirname, '../ui/dist')));
+
+// Start Express server
 server.listen(PORT, () => {
     console.log(`Lokaler Server läuft auf http://localhost:${PORT}`);
 });
 
+// Create the Electron window when ready
 app.whenReady().then(() => {
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         fullscreen: false,
         webPreferences: {
-            nodeIntegration: true,
+            nodeIntegration: true
         }
     });
 
