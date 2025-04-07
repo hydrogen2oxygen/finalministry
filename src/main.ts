@@ -19,6 +19,11 @@ server.listen(PORT, () => {
     console.log(`Lokaler Server läuft auf http://localhost:${PORT}`);
 });
 
+// 🔹 Add the /ping endpoint
+server.get('/ping', (req, res) => {
+    res.status(200).json({ status: 'pong', timestamp: new Date().toISOString() });
+});
+
 // Create the Electron window when ready
 app.whenReady().then(() => {
     mainWindow = new BrowserWindow({

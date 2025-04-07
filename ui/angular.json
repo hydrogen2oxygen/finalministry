@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ui2": {
+    "ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -39,6 +39,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "./",
               "budgets": [
                 {
                   "type": "initial",
@@ -60,6 +61,7 @@
               "outputHashing": "all"
             },
             "development": {
+              "baseHref": "/",
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
@@ -74,10 +76,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ui2:build:production"
+              "browserTarget": "ui:build:production"
             },
             "development": {
-              "browserTarget": "ui2:build:development"
+              "browserTarget": "ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -85,7 +87,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ui2:build"
+            "browserTarget": "ui:build"
           }
         },
         "test": {

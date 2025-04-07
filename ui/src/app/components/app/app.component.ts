@@ -6,7 +6,6 @@ import {Version} from "../../domains/Congregation";
 import {NavigationService} from "../../services/navigation.service";
 import {SettingsService} from "../../services/settings.service";
 import {FormControl} from "@angular/forms";
-import {Subject} from "rxjs";
 import {SharedService} from "../../services/shared.service";
 import {Search, SearchResult} from "../../domains/Search";
 
