@@ -23,6 +23,10 @@ export class CongregationService {
     return this.http.get<Version>(`${CongregationService.url}version`);
   }
 
+  ping():Observable<any> {
+    return this.http.get<any>(`${environment.serverUrl}/ping`);
+  }
+
   search(text:string):Observable<string[]> {
     return this.http.get<string[]>(`${CongregationService.url}search/${text}`);
   }

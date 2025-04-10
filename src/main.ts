@@ -5,11 +5,15 @@
 import { app, BrowserWindow } from 'electron';
 import express from 'express';
 import path from 'path';
+import cors from 'cors';
 
 let mainWindow: BrowserWindow | null = null;
 
 const PORT = 3000;
 const server = express();
+
+// Allow all origins
+server.use(cors());
 
 // Serve Angular frontend from 'ui/dist'
 server.use(express.static(path.join(__dirname, '../ui/dist')));

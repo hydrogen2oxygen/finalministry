@@ -17,6 +17,7 @@ import {Search, SearchResult} from "../../domains/Search";
 export class AppComponent {
   title = 'TERRITORIES';
   links: Link[] = this.getLinks();
+  ping:any
   version: Version|null = null;
   internetOffline:boolean = false;
   showSearch:boolean = false;
@@ -33,10 +34,22 @@ export class AppComponent {
     private settingsService:SettingsService,
     private sharedService:SharedService
   ) {
+    this.checkPing(); // First call immediately
+    setInterval(this.checkPing, 5000);
+
+    window.addEventListener('online', () => {
+      console.log('Back online!');
+      this.internetOffline = true
+    });
+
+    window.addEventListener('offline', () => {
+      console.log('Lost internet connection!');
+      this.internetOffline = false
+    });
+
     let currentUrl = window.location.href;
     currentUrl = currentUrl.substring(currentUrl.lastIndexOf("/") + 1);
     this.activateCurrentLink(currentUrl);
-    this.checkVersion();
 
     this.navigationService.navigate.subscribe( (url:string) => {
       this.navigate(url);
@@ -80,21 +93,19 @@ export class AppComponent {
     }
   }
 
+  checkPing = () => {
+    this.congregationService.ping().subscribe(pong => {
+      console.log(pong);
+      this.ping = pong;
+    });
+  };
+
   search() {
     if (this.searchField.value == null || this.searchField.value == "") {
       this.showSearch = false;
       return
     }
     this.sharedService.search.next(this.searchField.value)
-  }
-
-  checkVersion() {
-    this.congregationService.version().subscribe(
-        (v: Version | null) => this.version = v,
-      () => this.version = null);
-    setTimeout(() => {
-      this.checkVersion();
-    }, 5000);
   }
 
   navigate(navigationPath: string) {

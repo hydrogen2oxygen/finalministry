@@ -8,7 +8,7 @@
       <span *ngIf="version" class="badge text-bg-info" title="Final-Approach Version">{{version.revision}}</span>
       <span *ngIf="version && version.counterTerritories > 0" class="badge text-bg-primary" style="margin-left: 0.2rem" title="Territories">{{version.counterTerritories}}</span>
       <span *ngIf="version && version.counterPreachers > 0" class="badge text-bg-success" style="margin-left: 0.2rem" title="Preachers">{{version.counterPreachers}}</span>
-      <span *ngIf="version == null" class="badge text-bg-danger">OFFLINE</span>
+      <span *ngIf="ping == null" class="badge text-bg-danger">OFFLINE</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -32,14 +32,14 @@
   </div>
 </nav>
 
-<div class="content" role="main" *ngIf="version">
+<div class="content" role="main" *ngIf="ping">
   <!-- The dynamic content -->
   <router-outlet></router-outlet>
   <!-- Footer -->
   <footer></footer>
 </div>
 
-<div class="content" role="main" *ngIf="version == null">
+<div class="content" role="main" *ngIf="ping == null">
   <h1 class="badge bg-danger">Server is offline!</h1>
   <p>You need to restart your server application. Click on start.bat</p>
   <img src="assets/startServer.png">
